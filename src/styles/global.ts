@@ -20,7 +20,7 @@
 
     }
 
-    border-style, input-security, textarea, button {
+    body, input, textarea, button {
         font: 400 1rem "Roboto", sans-serif; // fonte padrão
     }
   `
