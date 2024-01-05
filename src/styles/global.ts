@@ -14,7 +14,7 @@
     }
 
     body {
-        background: ${(props) => props.theme['gray-500']};
+        background: ${(props) => props.theme['gray-800']};
         color: ${(props) => props.theme['gray-100']};
         -webkit-font-smoothing: antialiased; // deixa as fontes mais nítidas
 

@@ -1,5 +1,6 @@
 import { Header } from "../../components/Header"
 import { Summary } from "../../components/Summary"
+import { SearchForm } from "./components/SearchForm"
 import { PriceHighLight, TransactionContainer, TransactionTable } from "./styles"
 
 
@@ -10,6 +11,8 @@ export function Trasaction() {
             <Header />
             <Summary />
             <TransactionContainer>
+                <SearchForm />
+                
                 <TransactionTable>
                     <tbody>
                         {(itensTable).map((item) => (

@@ -11,7 +11,7 @@ export const TransactionTable = styled.table`
     width: 100%;
     border-collapse: separate; // separa as bordas
     border-spacing: 0 0.5rem; // espaçamento entre as linhas
-    /* margin-top: 1.5rem; */
+    margin-top: 1.5rem;
 
     td {
         padding: 1.25rem 2rem;
