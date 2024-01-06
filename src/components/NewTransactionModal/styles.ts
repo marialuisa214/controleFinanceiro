@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+
 
 
 export const Overlay = styled(Dialog.Overlay)`
@@ -78,8 +80,63 @@ export const CloseButton = styled(Dialog.Close)`
 
     cursor: pointer;
     color: ${(props) => props.theme['gray-500']};
-    /* line-height: 0; */
+    line-height: 0; // remove o espaço entre as linhas, no caso, do icone
+`
 
+export const TransactionType = styled(RadioGroup.Root)`
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+`
+
+
+interface TransactionTypeButtonProps {
+    // isActive: boolean;
+    activeColor: 'green' | 'red';
+
+}
+
+export const TransactionTypeButton = styled(RadioGroup.Item)<TransactionTypeButtonProps>`
+    background: ${(props) => props.theme['gray-700']};
+    border: 1px solid ${(props) => props.theme['gray-700']};
+    border-radius: 6px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: ${(props) => props.theme['gray-300']};
+
+    svg {
+        color: ${(props) => props.theme[props.activeColor + '-500']};
+    }
+
+    &:hover {
+        border: 1px solid ${(props) => props.theme[props.activeColor + '-500']};
+    }
     
+
+
+    &[data-state='checked'] {
+        background-color: ${(props) => props.theme[props.activeColor + '-500']};
+        border: 1px solid ${(props) => props.theme[props.activeColor + '-500']};
+        color: ${(props) => props.theme['white']};
+        transition: background-color 0.2s, color 0.2s;
+
+        svg {
+           color: ${(props) => props.theme['white']};
+        }
+
+    }
+
+    &[data-state='unchecked']:hover {
+        background-color: ${(props) => props.theme['gray-600']};
+        transition: background-color 0.2s;
+    }
+
+
+
 
 `
