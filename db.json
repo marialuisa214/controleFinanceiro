@@ -14,7 +14,7 @@
             "type": "outcome",
             "category": "Comida",
             "price": 35,
-            "create": "2024-01-08T15:56:56.861Z"
+            "create": "2024-01-06T15:56:56.861Z"
 
         },
         {   
@@ -23,7 +23,7 @@
             "type": "outcome",
             "category": "Lazer",
             "price": 78,
-            "create": "2024-01-08T18:56:56.861Z"
+            "create": "2024-01-06T15:56:56.861Z"
 
         },
         {   
@@ -32,9 +32,19 @@
             "type": "income",
             "category": "Comida",
             "price": 1500,
-            "create": "2023-12-010T15:56:56.861Z"
+            "create": "2024-01-06T15:56:56.861Z"
+
+        }, 
+        {   
+            "id": 5,
+            "description": "cartão de crédito",
+            "type": "outcome",
+            "category": "Cartão",
+            "price": 2800,
+            "create": "2024-01-06T15:56:56.861Z"
 
         }
+        
     ]
 
 }
