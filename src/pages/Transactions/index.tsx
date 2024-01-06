@@ -5,7 +5,7 @@ import { PriceHighLight, TransactionContainer, TransactionTable } from "./styles
 
 
 export function Trasaction() {
-    const  itensTable = ['outcome','income','outcome','income','income', 'outcome']
+    const  itensTable = ['outcome','income','outcome']
     return (
         <div>
             <Header />
