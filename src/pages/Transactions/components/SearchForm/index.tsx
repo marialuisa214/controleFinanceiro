@@ -1,49 +1,50 @@
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { SearchFormContainer } from "./styles";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
-import { TransactionsContext } from "../../../../contexts/TransactionsContext";
+import { MagnifyingGlass } from '@phosphor-icons/react'
+import { SearchFormContainer } from './styles'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useContext } from 'react'
+import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 
 const serchFormSchema = z.object({
-    query: z.string(),
+  query: z.string(),
 })
 
 type SearchFormSchema = z.infer<typeof serchFormSchema> // inferir o tipo de uma variável
 
 export function SearchForm() {
-    const { fechTransactions } = useContext(TransactionsContext);
+  const { fechTransactions } = useContext(TransactionsContext)
 
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SearchFormSchema>({
+    resolver: zodResolver(serchFormSchema), // resolver o esquema, para que o formulário só seja submetido se estiver tudo certo
+  })
 
-    const {register, handleSubmit, formState:{ isSubmitting }} = useForm<SearchFormSchema>({
-        resolver: zodResolver(serchFormSchema), // resolver o esquema, para que o formulário só seja submetido se estiver tudo certo
-    }); 
+  // reset -> limpa os campos do formulário
+  // handleSubmit -> executa uma OUTRA FUNÇÃO quando o formulário for submetido
+  // register -> registra os campos do formulário
+  // watch -> monitora os campos do formulário
+  // formState -> estado do formulário
+  // formState.isSubmitting -> se o formulário está sendo submetido
 
-    // reset -> limpa os campos do formulário
-    // handleSubmit -> executa uma OUTRA FUNÇÃO quando o formulário for submetido
-    // register -> registra os campos do formulário
-    // watch -> monitora os campos do formulário
-    // formState -> estado do formulário
-    //formState.isSubmitting -> se o formulário está sendo submetido
+  async function handleSearchTransactions(data: SearchFormSchema) {
+    await fechTransactions(data.query)
+  }
 
-    async function handleSearchTransactions(data: SearchFormSchema) {
-        await fechTransactions(data.query)
-
-    }
-
-    return (
-        <SearchFormContainer onSubmit={handleSubmit(handleSearchTransactions)}>
-            <input type="text"
-             placeholder="Busque por Transações"
-             {...register('query')}
-             
-             />
-            <button type="submit" disabled={isSubmitting}>
-                <MagnifyingGlass size={20}/>
-
-                Buscar 
-            </button>
-        </SearchFormContainer>
-    )
+  return (
+    <SearchFormContainer onSubmit={handleSubmit(handleSearchTransactions)}>
+      <input
+        type="text"
+        placeholder="Busque por Transações"
+        {...register('query')}
+      />
+      <button type="submit" disabled={isSubmitting}>
+        <MagnifyingGlass size={20} />
+        Buscar
+      </button>
+    </SearchFormContainer>
+  )
 }
