@@ -3,6 +3,8 @@ import { SearchFormContainer } from "./styles";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { TransactionsContext } from "../../../../contexts/TransactionsContext";
 
 const serchFormSchema = z.object({
     query: z.string(),
@@ -11,6 +13,9 @@ const serchFormSchema = z.object({
 type SearchFormSchema = z.infer<typeof serchFormSchema> // inferir o tipo de uma variável
 
 export function SearchForm() {
+    const { fechTransactions } = useContext(TransactionsContext);
+
+
     const {register, handleSubmit, formState:{ isSubmitting }} = useForm<SearchFormSchema>({
         resolver: zodResolver(serchFormSchema), // resolver o esquema, para que o formulário só seja submetido se estiver tudo certo
     }); 
@@ -23,8 +28,7 @@ export function SearchForm() {
     //formState.isSubmitting -> se o formulário está sendo submetido
 
     async function handleSearchTransactions(data: SearchFormSchema) {
-        await new Promise((resolver) => setTimeout(resolver, 2000));
-        console.log(data);
+        await fechTransactions(data.query)
 
     }
 

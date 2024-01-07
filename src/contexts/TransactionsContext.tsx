@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { api } from "../lib/axios";
 
 interface Transaction {
     id: number,
@@ -11,7 +12,8 @@ interface Transaction {
 
 
 interface TransactionsContextType {
-    transactions: Transaction[]  
+    transactions: Transaction[] ,
+    fechTransactions: (query?: string) => Promise<void> //função assicrona(Promise) sem nenhum retorno
 }
 
 interface TransactionsProviderProps {
@@ -23,26 +25,27 @@ export const TransactionsContext = createContext( {} as TransactionsContextType)
 export function TransactionsProvider({children} : TransactionsProviderProps) {
     const [transactions, setTransactions] = useState<Transaction[]>([])
 
-    async function loadTransactions() { 
-        const response = await fetch('http://localhost:3000/transactions')
-        const data = await response.json() 
+    async function fechTransactions( query?: string) { 
+        const response = await api.get('/transactions', {
+            params:{
+                q: query
+            }
+        })
 
-        setTransactions(data)
-        
-        // fetch() é uma função nativa do JS que faz requisições HTTP
-        
-        // async é uma função assíncrona, que vai ser executada em segundo plano, sem travar a aplicação, enquanto o resto do código é executado
-        
-        // await é uma palavra reservada que faz com que o JS espere a requisição ser concluída para continuar a execução do código
+        setTransactions(response.data)
 }
 
     useEffect(() => { 
 
-        loadTransactions()
+        fechTransactions()
     }, []) 
 
     return (
-        <TransactionsContext.Provider value={{transactions}}>
+        <TransactionsContext.Provider 
+            value={{
+                transactions,
+                fechTransactions
+            }}>
             {children}
         </TransactionsContext.Provider>
     )
