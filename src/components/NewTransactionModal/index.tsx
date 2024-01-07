@@ -4,6 +4,8 @@ import { ArrowCircleDown, ArrowCircleUp, X } from "@phosphor-icons/react";
 import * as z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { TransactionsContext } from "../../contexts/TransactionsContext";
 
 const newTransactionSchema = z.object({
     description: z.string(),
@@ -15,19 +17,21 @@ const newTransactionSchema = z.object({
 type NewTransactionSchema = z.infer<typeof newTransactionSchema>;
 
 export function NewTransactionModal() {
-
+    const { createTransaction } = useContext(TransactionsContext);
     const { 
             register, 
             control, // controla o estado do formulário
             handleSubmit, 
+            reset,
             formState: { isSubmitting } 
     } = useForm<NewTransactionSchema>({
             resolver: zodResolver(newTransactionSchema),
     });
 
     async function handleCreateNewTransaction(data: NewTransactionSchema) {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(data);
+        createTransaction(data);
+       
+        reset()
     }
  
     return (

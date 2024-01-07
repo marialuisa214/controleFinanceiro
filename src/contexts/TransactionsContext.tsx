@@ -9,11 +9,18 @@ interface Transaction {
     price: number,
     create: string
 }
+interface TransactionInputForm  {
+    description: string,
+    type: "outcome" | "income",
+    category: string,
+    price: number
+}
 
 
 interface TransactionsContextType {
     transactions: Transaction[] ,
     fechTransactions: (query?: string) => Promise<void> //função assicrona(Promise) sem nenhum retorno
+    createTransaction: (data: TransactionInputForm) => Promise<void>
 }
 
 interface TransactionsProviderProps {
@@ -28,12 +35,27 @@ export function TransactionsProvider({children} : TransactionsProviderProps) {
     async function fechTransactions( query?: string) { 
         const response = await api.get('/transactions', {
             params:{
+                _sort: 'create',
+                _order: 'desc',
                 q: query
             }
         })
 
         setTransactions(response.data)
 }
+    async function createTransaction(data: TransactionInputForm) {
+        const { description, category, type, price } = data;
+
+        const response = await api.post('/transactions', {
+            description,
+            category,
+            type,
+            price,
+            create: new Date()
+        })
+
+        setTransactions(state => [ response.data, ...state])
+    }
 
     useEffect(() => { 
 
@@ -44,7 +66,8 @@ export function TransactionsProvider({children} : TransactionsProviderProps) {
         <TransactionsContext.Provider 
             value={{
                 transactions,
-                fechTransactions
+                fechTransactions,
+                createTransaction
             }}>
             {children}
         </TransactionsContext.Provider>

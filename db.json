@@ -1,50 +1,68 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "description": "Desenvolvimento de site",
-            "type": "income",
-            "category": "Venda",
-            "price": 1400,
-            "create": "2024-01-06T15:56:56.861Z"
-        },
-        {
-            "id": 2,
-            "description": "lanchinho",
-            "type": "outcome",
-            "category": "Comida",
-            "price": 35,
-            "create": "2024-01-06T15:56:56.861Z"
-
-        },
-        {   
-            "id": 3,
-            "description": "roupa nova",
-            "type": "outcome",
-            "category": "Lazer",
-            "price": 78,
-            "create": "2024-01-06T15:56:56.861Z"
-
-        },
-        {   
-            "id": 4,
-            "description": "salário Ailab",
-            "type": "income",
-            "category": "Comida",
-            "price": 1500,
-            "create": "2024-01-06T15:56:56.861Z"
-
-        }, 
-        {   
-            "id": 5,
-            "description": "cartão de crédito",
-            "type": "outcome",
-            "category": "Cartão",
-            "price": 2800,
-            "create": "2024-01-06T15:56:56.861Z"
-
-        }
-        
-    ]
-
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Desenvolvimento de site",
+      "type": "income",
+      "category": "Venda",
+      "price": 1400,
+      "create": "2024-01-06T15:56:56.861Z"
+    },
+    {
+      "id": 2,
+      "description": "lanchinho",
+      "type": "outcome",
+      "category": "Comida",
+      "price": 35,
+      "create": "2024-01-06T15:56:56.861Z"
+    },
+    {
+      "id": 3,
+      "description": "roupa nova",
+      "type": "outcome",
+      "category": "Lazer",
+      "price": 78,
+      "create": "2024-01-06T15:56:56.861Z"
+    },
+    {
+      "id": 4,
+      "description": "salário Ailab",
+      "type": "income",
+      "category": "Comida",
+      "price": 1500,
+      "create": "2024-01-06T15:56:56.861Z"
+    },
+    {
+      "id": 5,
+      "description": "cartão de crédito",
+      "type": "outcome",
+      "category": "Cartão",
+      "price": 2800,
+      "create": "2024-01-06T15:56:56.861Z"
+    },
+    {
+      "description": "teclado",
+      "category": "trabalho",
+      "type": "outcome",
+      "price": 345,
+      "create": "2024-01-07T14:16:55.310Z",
+      "id": 6
+    },
+    {
+      "description": "app",
+      "category": "trabalho",
+      "type": "income",
+      "price": 3560,
+      "create": "2024-01-07T14:36:54.251Z",
+      "id": 7
+    },
+    {
+      "description": "matheus",
+      "category": "divida",
+      "type": "outcome",
+      "price": 200,
+      "create": "2024-01-07T14:48:53.800Z",
+      "id": 8
+    }
+  ]
 }
