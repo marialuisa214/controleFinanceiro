@@ -2,14 +2,14 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton } from "./styles";
 import { ArrowCircleDown, ArrowCircleUp, X } from "@phosphor-icons/react";
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const newTransactionSchema = z.object({
     description: z.string(),
     price: z.number(),
     category: z.string(),
-    // type: z.enum(["income", "outcome"]),
+    type: z.enum(["income", "outcome"]),
 });
 
 type NewTransactionSchema = z.infer<typeof newTransactionSchema>;
@@ -18,6 +18,7 @@ export function NewTransactionModal() {
 
     const { 
             register, 
+            control, // controla o estado do formulário
             handleSubmit, 
             formState: { isSubmitting } 
     } = useForm<NewTransactionSchema>({
@@ -51,22 +52,33 @@ export function NewTransactionModal() {
                              required
                              {...register('category')}/>
 
-                        <TransactionType>
-                            <TransactionTypeButton 
-                                value="income" 
-                                activeColor='green'>
-                                <ArrowCircleUp size={24} />
-                                Entrada
-                            </TransactionTypeButton>
+                        <Controller 
+                            control={control}
+                            name="type"
+                            render={({ field }) => {
+                                return (
+                                    <TransactionType 
+                                        onValueChange={field.onChange} 
+                                        value={field.value}>
+                                    <TransactionTypeButton 
+                                        value="income" 
+                                        activeColor='green'>
+                                        <ArrowCircleUp size={24} />
+                                        Entrada
+                                    </TransactionTypeButton>
 
-                            <TransactionTypeButton 
-                                value="outcome" 
-                                activeColor='red'>
-                                <ArrowCircleDown size={24} />
-                                Saida
-                            </TransactionTypeButton>
+                                    <TransactionTypeButton 
+                                        value="outcome" 
+                                        activeColor='red'>
+                                        <ArrowCircleDown size={24} />
+                                        Saida
+                                    </TransactionTypeButton>
 
-                        </TransactionType>
+                                </TransactionType> 
+
+                                )}
+                            }
+                        />
 
                         <button type="submit" disabled={isSubmitting}>Cadastrar</button>
                     </form>
