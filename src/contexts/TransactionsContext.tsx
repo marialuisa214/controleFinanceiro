@@ -1,7 +1,22 @@
 import { useEffect, useState, useCallback } from 'react'
 import { api } from '../lib/axios'
 import { createContext } from 'use-context-selector'
+import { memo } from 'react'
 
+// memo -> memoriza um componente, para que ele não seja recriado toda vez que o componente for renderizado, e sim somente quando a dependência mudar
+
+/** Fluxo normal de renderização:
+ * React recria o HTML
+ * Compara a versão anterior do HTML com a nova versão
+ * Se houverem mudanças, o React atualiza o que mudou no DOM
+ */
+
+
+/** MEMO: 
+ *  Hooks changes -> Props changes (deep comarison)
+ *  comparar a versão anterior dos hooks e props
+ *  se houver mudanças, o componente é recriado (entra no fluxo de renderização)
+ */
 interface Transaction {
   id: number
   description: string

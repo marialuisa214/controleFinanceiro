@@ -5,6 +5,7 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 import { useContextSelector } from 'use-context-selector'
+import { memo } from 'react'
 
 const serchFormSchema = z.object({
   query: z.string(),
@@ -12,7 +13,7 @@ const serchFormSchema = z.object({
 
 type SearchFormSchema = z.infer<typeof serchFormSchema> // inferir o tipo de uma variável
 
-export function SearchForm() {
+function SearchFormComponent() {
   const  fechTransactions  = useContextSelector(TransactionsContext, (context) => {
     return context.fechTransactions
   })
@@ -50,3 +51,5 @@ export function SearchForm() {
     </SearchFormContainer>
   )
 }
+
+export const SearchForm = memo(SearchFormComponent)
