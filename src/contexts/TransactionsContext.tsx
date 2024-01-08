@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { api } from '../lib/axios'
 import { createContext } from 'use-context-selector'
 
@@ -32,30 +32,37 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  async function fechTransactions(query?: string) {
-    const response = await api.get('/transactions', {
-      params: {
-        _sort: 'create',
-        _order: 'desc',
-        q: query,
-      },
-    })
+  const fechTransactions = useCallback(
+    async (query?: string) => {
+      const response = await api.get('/transactions', {
+        params: {
+          _sort: 'create',
+          _order: 'desc',
+          q: query,
+        },
+      })
+  
+      setTransactions(response.data)
+    }, []
+  )
 
-    setTransactions(response.data)
-  }
-  async function createTransaction(data: TransactionInputForm) {
-    const { description, category, type, price } = data
+  // useCallback -> memoriza uma função, para que ela não seja recriada toda vez que o componente for renderizado, e sim somente quando a dependência mudar
 
-    const response = await api.post('/transactions', {
-      description,
-      category,
-      type,
-      price,
-      create: new Date(),
-    })
-
-    setTransactions((state) => [response.data, ...state])
-  }
+  const createTransaction = useCallback(
+    async (data: TransactionInputForm) => {
+      const { description, category, type, price } = data
+  
+      const response = await api.post('/transactions', {
+        description,
+        category,
+        type,
+        price,
+        create: new Date(),
+      })
+  
+      setTransactions((state) => [response.data, ...state])
+    }, [] // array de dependências, se alguma dependência mudar, a função será recriada 
+  ) 
 
   useEffect(() => {
     fechTransactions()
