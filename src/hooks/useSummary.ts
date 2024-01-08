@@ -1,9 +1,11 @@
-import { useContext } from 'react'
 import { TransactionsContext } from '../contexts/TransactionsContext'
+import { useContextSelector } from 'use-context-selector'
 
 // abstrair a lógica de cálculo do resumo em um hook customizado
 export function useSummary() {
-  const { transactions } = useContext(TransactionsContext)
+  const transactions = useContextSelector(TransactionsContext, (context) => {
+    return context.transactions
+  })
   // objeto {totalIncome: 0, totalOutcome: 0, total: 0}
 
   const summary = transactions.reduce(
